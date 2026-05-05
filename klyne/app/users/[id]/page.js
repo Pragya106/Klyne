@@ -16,7 +16,6 @@ export default function UserDetailPage({ params }) {
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [statusMessage, setStatusMessage] = useState("");
 
-  // Find user when context loads or ID changes
   useEffect(() => {
     if (!loading) {
       const foundUser = users.find((u) => u.id === parseInt(id));
@@ -24,7 +23,6 @@ export default function UserDetailPage({ params }) {
         setUser(foundUser);
         setFormData({ name: foundUser.name, email: foundUser.email });
       } else {
-        // If not in context, try to fetch directly (fallback)
         fetchUserDirectly();
       }
     }
@@ -68,13 +66,11 @@ export default function UserDetailPage({ params }) {
       });
       
       if (response.ok) {
-        // Update local context
         updateUser(id, { name: formData.name, email: formData.email });
         setUser((prev) => ({ ...prev, name: formData.name, email: formData.email }));
         setStatusMessage("User updated successfully!");
         setIsEditing(false);
         
-        // Clear success message after 3 seconds
         setTimeout(() => setStatusMessage(""), 3000);
       } else {
         setStatusMessage("Failed to update user.");
@@ -100,7 +96,6 @@ export default function UserDetailPage({ params }) {
         setStatusMessage("Failed to delete user.");
       }
     } catch (error) {
-      
       setStatusMessage("Error deleting user.");
     }
   };
@@ -132,7 +127,6 @@ export default function UserDetailPage({ params }) {
                 </button>
               </div>
             </div>
-            {/* You could display more user details here if needed */}
           </>
         ) : (
           <form className="edit-form" onSubmit={handleUpdate}>
