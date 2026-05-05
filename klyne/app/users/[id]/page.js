@@ -85,7 +85,8 @@ export default function UserDetailPage({ params }) {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    const input = window.confirm("Are you sure you want to delete this user?");
+    if (!input) return;
     
     try {
       const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
@@ -99,6 +100,7 @@ export default function UserDetailPage({ params }) {
         setStatusMessage("Failed to delete user.");
       }
     } catch (error) {
+      
       setStatusMessage("Error deleting user.");
     }
   };
